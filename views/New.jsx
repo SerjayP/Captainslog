@@ -4,7 +4,7 @@ class New extends React.Component {
   render() {
     return (
       <div>
-        <form action="/logs" method="POST">
+        <form action="/logs/" method="POST">
             Title:
             <input type="text" name="Title" /> <br />
             New Entry:
