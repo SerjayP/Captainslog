@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const logsSchema = new mongoose.Schema({
-    Tilte: { type: String, required: true },
-    Entry:  { type: String, required: true },
+    title: { type: String, required: true },
+    entry:  { type: String, required: true },
     shipIsBroken: { type: Boolean }
 },
 {
