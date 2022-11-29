@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 const app = express()
 const PORT = 3000
@@ -23,7 +24,7 @@ app.post("/logs/", (req, res) => {
     } else {
         req.body.shipIsBroken = false
     }
-    res.send(req.body)
+    res.render("Show")
 })
 
 app.listen(PORT,()=>{
