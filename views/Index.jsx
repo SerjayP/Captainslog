@@ -13,7 +13,7 @@ class Index extends React.Component {
           {logs.map((log, i) => {
             return (
               <li>
-                <a href={`/logs/${log._id}`}>{log.title}</a> is {log.entry}{" "}
+                <a href={`/logs/${log._id}`}>{log.title}</a>
                 <br />
                 {log.shipIsBroken
                   ? "Ship is in working condition"

@@ -5,6 +5,7 @@ const PORT = 3000
 const mongoose = require("mongoose")
 const reactViews = require("express-react-views")
 const Log = require("./models/logs")
+const methodOverride = require('method-override');
 
 // ===== Connection to Database =====
 mongoose.connect(process.env.MONGO_URI,{
@@ -15,16 +16,37 @@ mongoose.connect(process.env.MONGO_URI,{
     console.log("connected to mongo")
   })
 
+//   ======== Engine ========
 app.set("view engine", "jsx");
 app.engine("jsx", reactViews.createEngine());
 
-app.use(express.urlencoded({ extended: false }));
+// ===== Middleware =====
+app.use((req, res, next) => {
+    console.log("Im running for all routes")
+    console.log("1. middleware")
+    next()
+  })
+  app.use(express.urlencoded({extended: false}))
+  app.use(methodOverride("_method"))
+//   app.use(express.static('public'));
 
 
 // ======== New ========
 
 app.get("/logs/new", (req, res)=>{
     res.render('New')
+})
+
+// ========= DELETE =========
+app.delete('/logs/:id', (req, res) => {
+    req.body.shipIsBroken = req.body.shipIsBroken === 'on' ? true : false;
+    Log.findByIdAndDelete(req.params.id, req.body, (err, updatedLog) => {
+        if(!err) {
+            res.status(200).redirect(`/logs`)
+        } else {
+            res.status(400). send(err);
+        }
+    })
 })
 
 // ========= Index ========
